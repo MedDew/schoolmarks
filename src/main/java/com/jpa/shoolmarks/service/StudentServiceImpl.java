@@ -1,6 +1,7 @@
 package com.jpa.shoolmarks.service;
 
 import com.jpa.shoolmarks.dto.StudentDTO;
+import com.jpa.shoolmarks.entity.Student;
 import com.jpa.shoolmarks.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,7 +30,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentDTO getStudentById(long id) {
-        return null;
+        Optional<Student> student = studentRepository.findById(id);
+        StudentDTO studentDTO = new StudentDTO(student.get().getId(), student.get().getName(), student.get().getAge());
+        return studentDTO;
     }
 
     @Override
