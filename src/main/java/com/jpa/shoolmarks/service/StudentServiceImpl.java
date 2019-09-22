@@ -31,13 +31,17 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDTO getStudentById(long id) {
         Optional<Student> student = studentRepository.findById(id);
-        StudentDTO studentDTO = new StudentDTO(student.get().getId(), student.get().getName(), student.get().getAge());
-        return studentDTO;
+        //if(student.isPresent()) {
+            StudentDTO studentDTOById = new StudentDTO(student.get().getId(), student.get().getName(), student.get().getAge());
+        //}
+        return studentDTOById;
     }
 
     @Override
     public StudentDTO getStudentByName(String name) {
-        return null;
+        Student student = studentRepository.getStudentByName(name);
+        StudentDTO studentDTOByName = new StudentDTO(student.getId(), student.getName(), student.getAge());
+        return studentDTOByName;
     }
 
     @Override
