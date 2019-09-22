@@ -4,7 +4,9 @@ import com.jpa.shoolmarks.dto.StudentDTO;
 import com.jpa.shoolmarks.entity.Student;
 import com.jpa.shoolmarks.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -50,8 +52,21 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO updateStudent() {
-        return null;
+    public StudentDTO updateStudent(long id, StudentDTO studentDTO) {
+        Optional<Student> student = studentRepository.findById(id);
+        if(student.isPresent()){
+            Student studentToUpdate = student.get();
+            studentToUpdate.setId(studentDTO.getId());
+            studentToUpdate.setName(studentDTO.getName());
+            studentToUpdate.setAge(studentDTO.getAge());
+            Student studentUpdated = studentRepository.save(studentToUpdate);
+            StudentDTO studentDTOUpdated = new StudentDTO(studentUpdated.getId(), studentUpdated.getName(), studentUpdated.getAge());
+
+            return studentDTOUpdated;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The student with id : "+ id +" to update does not exist");
+        }
+
     }
 
     @Override
