@@ -9,6 +9,6 @@ public interface StudentService {
     StudentDTO getStudentById(long id);
     StudentDTO getStudentByName(String name);
     StudentDTO createStudent();
-    StudentDTO updateStudent();
+    StudentDTO updateStudent(long id, StudentDTO studentDTO);
     StudentDTO deleteteStudent();
 }
