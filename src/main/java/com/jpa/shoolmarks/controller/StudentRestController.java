@@ -33,4 +33,9 @@ public class StudentRestController {
             throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "Student with name : "+name+" not found", e);
         }
     }
+
+    @PutMapping(path = "/students/{studentId}")
+    public StudentDTO updateStudent(@PathVariable(name = "studentId") long id, @RequestBody StudentDTO studentDTO ){
+        return studentService.updateStudent(id, studentDTO);
+    }
 }
