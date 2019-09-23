@@ -10,5 +10,5 @@ public interface StudentService {
     StudentDTO getStudentByName(String name);
     StudentDTO createStudent(StudentDTO studentDTO);
     StudentDTO updateStudent(long id, StudentDTO studentDTO);
-    StudentDTO deleteteStudent();
+    StudentDTO deleteteStudent(long id);
 }
