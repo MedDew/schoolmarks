@@ -77,7 +77,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO deleteteStudent() {
-        return null;
+    public StudentDTO deleteteStudent(long id) {
+        Optional<Student> foundStudent = studentRepository.findById(id);
+        if(foundStudent.isPresent()){
+            Student studentToDelete = foundStudent.get();
+            studentRepository.delete(studentToDelete);
+            StudentDTO studentDTODeleted = new StudentDTO(studentToDelete.getId(), studentToDelete.getName(), studentToDelete.getAge());
+            return studentDTODeleted;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The student to delete with id : "+id+" does not exist");
+        }
     }
 }
