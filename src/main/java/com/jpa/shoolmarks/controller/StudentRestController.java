@@ -42,12 +42,18 @@ public class StudentRestController {
 
     @PostMapping(path = "/student")
     public ResponseEntity<StudentDTO> createStudent(@RequestBody StudentDTO studentDTO){
-        return new ResponseEntity(studentService.createStudent(studentDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(studentService.createStudent(studentDTO), HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/student2")
     @ResponseStatus(code = HttpStatus.CREATED)
     public StudentDTO createStudent2(@RequestBody StudentDTO studentDTO){
         return studentService.createStudent(studentDTO);
+    }
+
+    @DeleteMapping("/students/{id}")
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    public StudentDTO deleteStudent(@PathVariable( name = "id") long studentId){
+        return studentService.deleteteStudent(studentId);
     }
 }
