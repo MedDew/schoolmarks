@@ -33,10 +33,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDTO getStudentById(long id) {
         Optional<Student> student = studentRepository.findById(id);
-        //if(student.isPresent()) {
-            StudentDTO studentDTOById = new StudentDTO(student.get().getId(), student.get().getName(), student.get().getAge());
-        //}
-        return studentDTOById;
+        if(student.isPresent()) {
+            return new StudentDTO(student.get().getId(), student.get().getName(), student.get().getAge());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The student with id : "+id+" is not found");
+        }
     }
 
     @Override
