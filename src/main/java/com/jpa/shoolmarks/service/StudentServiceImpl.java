@@ -47,8 +47,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO createStudent() {
-        return null;
+    public StudentDTO createStudent(StudentDTO studentDTO) {
+        Student student = new Student();
+        student.setName(studentDTO.getName());
+        student.setAge(studentDTO.getAge());
+
+        Student studentCreated  = studentRepository.save(student);
+        StudentDTO studentDTOCreated = new StudentDTO(studentCreated.getId(), studentCreated.getName(), studentCreated.getAge());
+
+        return studentDTOCreated;
     }
 
     @Override
